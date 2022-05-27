@@ -3,9 +3,8 @@ package com.example.banchanrenew
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
-import com.example.banchanrenew.relation.Dish
-import com.example.banchanrenew.relation.GramOfUnit
-import com.example.banchanrenew.relation.Ingredient
+import androidx.room.Update
+import com.example.banchanrenew.relation.*
 
 @Dao
 interface IngredientDAO {
@@ -20,8 +19,26 @@ interface IngredientDAO {
 
     @Insert fun insertGramOfUnit(gramOfUnit: GramOfUnit)
 
+    @Insert fun insertEssentialList(list: List<EssentialIngredients>)
+
+    @Insert fun insertEssential(essentialIngredients: EssentialIngredients)
+
+    @Query("UPDATE ingredient SET remainGram = :remain WHERE name = :name")
+    fun updateTest(remain: Int, name: String)
+
     @Query("SELECT unit From Ingredient WHERE id = :id")
     fun selectUnitFromIngredient(id: Int): String
+
+    @Query("SELECT name From Ingredient WHERE name = :name")
+    fun selectUnitFromIngredientName(name: String): String
+
+    @Query("SELECT nation From Dish WHERE dishId = :id")
+    fun eeeee(id: Int): String
+
+    @Query("SELECT remainGram From ingredient WHERE name = :name")
+    fun eee2(name: String): Int
+
+    @Insert fun insertDishList(list: List<Dish>)
 
     @Query("SELECT * From Ingredient WHERE dataType = :dataType")
     fun selectIngredientWhereDataType(dataType: String): List<Ingredient>
@@ -43,4 +60,10 @@ interface IngredientDAO {
 
     @Query("DELETE FROM GramOfUnit")
     fun delete2()
+
+    @Query("DELETE FROM essential")
+    fun delete3()
+
+    @Query("DELETE FROM dish")
+    fun delete4()
 }
